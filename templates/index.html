@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CLIPHER — Autonomous AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/css/variables.css">
+<link rel="stylesheet" href="/static/css/layout.css">
+<link rel="stylesheet" href="/static/css/sidebar.css">
+<link rel="stylesheet" href="/static/css/chat.css">
+<link rel="stylesheet" href="/static/css/composer.css">
+<link rel="stylesheet" href="/static/css/canvas.css">
+<link rel="stylesheet" href="/static/css/settings.css">
+<link rel="stylesheet" href="/static/css/animations.css">
+<link rel="stylesheet" href="/static/css/responsive.css">
+</head>
+<body>
+<div id="app">
+  <!-- Sidebar -->
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-header">
+      <button id="new-chat-btn" class="btn-new-chat">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+        New Chat
+      </button>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">Today</div>
+      <div id="chat-list" class="chat-list"></div>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">Pinned</div>
+      <div id="pinned-list" class="chat-list"></div>
+    </div>
+    <div class="sidebar-footer">
+      <button id="settings-btn" class="btn-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 5 15.4a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+        Settings
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main id="main" class="main">
+    <!-- Header -->
+    <header class="header">
+      <button id="sidebar-toggle" class="btn-icon hamburger">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+      <div class="logo">
+        <div class="logo-icon">C</div>
+        <span>CLIPHER</span>
+      </div>
+      <div class="header-center">
+        <button id="model-selector" class="model-dropdown">
+          <span id="current-model">nvidia/nemotron-3-super-120b-a12b:free</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+      </div>
+      <div class="header-right">
+        <button id="menu-btn" class="btn-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Chat Area -->
+    <div id="chat-container" class="chat-container">
+      <!-- Welcome Screen -->
+      <div id="welcome" class="welcome">
+        <div class="welcome-bg"></div>
+        <div class="welcome-content">
+          <div class="welcome-logo">
+            <div class="logo-glow"></div>
+            <div class="logo-text">CLIPHER</div>
+          </div>
+          <p class="welcome-subtitle">Autonomous AI Agent</p>
+          <div class="capability-cards">
+            <div class="cap-card" data-prompt="Write a Python script to automate file organization">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+              <span>Code</span>
+            </div>
+            <div class="cap-card" data-prompt="Research the latest AI developments and summarize">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+              <span>Research</span>
+            </div>
+            <div class="cap-card" data-prompt="Debug this error: connection refused on port 8080">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+              <span>Debug</span>
+            </div>
+            <div class="cap-card" data-prompt="Create a dark-themed landing page with glassmorphism">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+              <span>Design</span>
+            </div>
+          </div>
+          <div class="suggested-prompts">
+            <button class="suggestion" data-prompt="Build a REST API with authentication">Build a REST API with auth</button>
+            <button class="suggestion" data-prompt="Scrape data from a website and analyze">Scrape and analyze website</button>
+            <button class="suggestion" data-prompt="Optimize this SQL query for performance">Optimize SQL query</button>
+            <button class="suggestion" data-prompt="Create a Docker deployment setup">Docker deployment setup</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Messages -->
+      <div id="messages" class="messages"></div>
+    </div>
+
+    <!-- Composer -->
+    <div class="composer-wrapper">
+      <div id="capability-chips" class="capability-chips">
+        <button class="chip" data-tool="think"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10H12V2z"></path><path d="M12 2a10 10 0 0 1 10 10"></path></svg>Think</button>
+        <button class="chip" data-tool="search"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>Search</button>
+        <button class="chip" data-tool="agent"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>Agent</button>
+        <button class="chip" data-tool="python"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>Python</button>
+        <button class="chip" data-tool="terminal"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>Terminal</button>
+        <button class="chip" data-tool="canvas"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>Canvas</button>
+      </div>
+      <div class="composer">
+        <button id="plus-btn" class="btn-plus">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+        </button>
+        <div class="textarea-wrapper">
+          <textarea id="chat-input" placeholder="Ask anything..." rows="1"></textarea>
+        </div>
+        <button id="mic-btn" class="btn-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
+        </button>
+        <button id="send-btn" class="btn-send">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+        </button>
+      </div>
+      <div class="composer-hint">CLIPHER can make mistakes. Verify important information.</div>
+    </div>
+  </main>
+
+  <!-- Plus Menu Modal -->
+  <div id="plus-menu" class="modal-overlay hidden">
+    <div class="plus-sheet">
+      <div class="plus-header">
+        <div class="plus-drag"></div>
+        <span>Tools</span>
+      </div>
+      <div class="plus-grid">
+        <button class="plus-item" data-action="image"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg><span>Images</span></button>
+        <button class="plus-item" data-action="search"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg><span>Search</span></button>
+        <button class="plus-item" data-action="think"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10H12V2z"></path><path d="M12 2a10 10 0 0 1 10 10"></path></svg><span>Think</span></button>
+        <button class="plus-item" data-action="deep-research"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg><span>Deep Research</span></button>
+        <button class="plus-item" data-action="python"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg><span>Python</span></button>
+        <button class="plus-item" data-action="terminal"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg><span>Terminal</span></button>
+        <button class="plus-item" data-action="agent"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg><span>Agent</span></button>
+        <button class="plus-item" data-action="canvas"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg><span>Canvas</span></button>
+        <button class="plus-item" data-action="files"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg><span>Files</span></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Settings Modal -->
+  <div id="settings-modal" class="modal-overlay hidden">
+    <div class="settings-panel">
+      <div class="settings-header">
+        <h2>Settings</h2>
+        <button id="close-settings" class="btn-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+      <div class="settings-body">
+        <div class="setting-group">
+          <label>Theme</label>
+          <div class="theme-options">
+            <button class="theme-btn active" data-theme="dark">Dark</button>
+            <button class="theme-btn" data-theme="midnight">Midnight</button>
+            <button class="theme-btn" data-theme="ocean">Ocean</button>
+          </div>
+        </div>
+        <div class="setting-group">
+          <label>Model</label>
+          <select id="settings-model">
+            <option value="nvidia/nemotron-3-super-120b-a12b:free">NVIDIA Nemotron 3 Super 120B</option>
+            <option value="meta-llama/llama-3.1-405b-instruct:free">Meta Llama 3.1 405B</option>
+            <option value="google/gemini-2.0-flash-exp:free">Google Gemini 2.0 Flash</option>
+            <option value="deepseek/deepseek-chat:free">DeepSeek Chat</option>
+            <option value="qwen/qwen-2.5-72b-instruct:free">Qwen 2.5 72B</option>
+            <option value="anthropic/claude-3.5-sonnet">Claude 3.5 Sonnet</option>
+          </select>
+        </div>
+        <div class="setting-group">
+          <label>Temperature <span id="temp-val">0.7</span></label>
+          <input type="range" id="settings-temp" min="0" max="2" step="0.1" value="0.7">
+        </div>
+        <div class="setting-group">
+          <label>Max Tokens <span id="tokens-val">4000</span></label>
+          <input type="range" id="settings-tokens" min="256" max="8192" step="256" value="4000">
+        </div>
+        <div class="setting-group">
+          <label>System Prompt</label>
+          <textarea id="settings-system" rows="6" placeholder="Enter custom system prompt..."></textarea>
+        </div>
+        <div class="setting-group">
+          <label>OpenRouter API Key</label>
+          <input type="password" id="settings-key" placeholder="sk-or-...">
+        </div>
+        <div class="setting-group toggle-group">
+          <label>Auto Mode</label>
+          <button id="toggle-auto" class="toggle active">On</button>
+        </div>
+        <div class="setting-group">
+          <button id="export-btn" class="btn-secondary">Export Chats</button>
+          <button id="import-btn" class="btn-secondary">Import Chats</button>
+          <input type="file" id="import-file" accept=".json" hidden>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Model Selector Modal -->
+  <div id="model-modal" class="modal-overlay hidden">
+    <div class="model-panel">
+      <div class="model-header">
+        <h2>Select Model</h2>
+        <button id="close-model" class="btn-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+      <input type="text" id="model-search" class="model-search" placeholder="Search models...">
+      <div id="model-list" class="model-list"></div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="toast hidden"></div>
+</div>
+
+<script src="/static/js/utils.js"></script>
+<script src="/static/js/api.js"></script>
+<script src="/static/js/icons.js"></script>
+<script src="/static/js/ui.js"></script>
+<script src="/static/js/chat.js"></script>
+<script src="/static/js/agent.js"></script>
+<script src="/static/js/canvas.js"></script>
+<script src="/static/js/terminal.js"></script>
+<script src="/static/js/python.js"></script>
+<script src="/static/js/files.js"></script>
+<script src="/static/js/settings.js"></script>
+</body>
+</html>
