@@ -1,30 +1,36 @@
-# CLIPHER v2.0 — Autonomous AI Agent
+# CLIPHER v3.0 — Unrestricted AI Agent
 
-Premium AI interface with autonomous agent capabilities.
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/fucku738386U/clipher)
 
 ## Features
-- Multi-model AI chat (OpenRouter)
-- Autonomous agent with tool calling
-- Web search & scraping
-- Shell & Python execution
-- File operations
-- Canvas workspace
-- Dark glassmorphism UI
-- Responsive design
+- 7 AI Models (5 Free + 2 Premium)
+- Unrestricted Mode — No Safety Filters
+- Dark Hacker Theme (WormGPT Style)
+- ChatGPT-style Clean Chat
+- Shell & Python Execution
+- Web Search
 
-## Run
-```bash
-python3 a.py
-```
-
-Open http://localhost:7860
+## Deploy
+1. Click **Deploy to Render** button above
+2. Add your `OPENROUTER_API_KEY` in Environment Variables
+3. Done — Free hosting forever
 
 ## Models
-- NVIDIA Nemotron 3 Super 120B
-- Meta Llama 3.1 405B
-- Google Gemini 2.0 Flash
-- DeepSeek Chat
-- Qwen 2.5 72B
-- Claude 3.5 Sonnet
-- GPT-4o
-- Mistral Large
+| Model | Provider | Free |
+|-------|----------|------|
+| Nemotron 3 Super 120B | NVIDIA | ✅ |
+| Llama 3.1 405B | Meta | ✅ |
+| Gemini 2.0 Flash | Google | ✅ |
+| DeepSeek V3 | DeepSeek | ✅ |
+| Qwen 2.5 72B | Alibaba | ✅ |
+| Claude 3.5 Sonnet | Anthropic | ❌ |
+| GPT-4o | OpenAI | ❌ |
+
+## Run Local
+```bash
+pip install requests
+export OPENROUTER_API_KEY=sk-or-v1-...
+python a.py
+```
+
+Open http://localhost:7861
