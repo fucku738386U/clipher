@@ -23,7 +23,7 @@ CONFIG_PATH = os.path.join(BASE_DIR, "config.json")
 
 # Load config
 DEFAULT_MODEL = "nvidia/nemotron-3-super-120b-a12b:free"
-PORT = 7861
+PORT = int(os.environ.get("PORT", os.environ.get("SERVER_PORT", 7861)))
 OPENROUTER_KEY = os.environ.get("OPENROUTER_API_KEY", "")
 
 if not OPENROUTER_KEY and os.path.exists(CONFIG_PATH):
