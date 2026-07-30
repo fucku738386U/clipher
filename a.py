@@ -275,7 +275,7 @@ def agent_execute(task_id, command):
         cmd_lower = command.lower()
         if any(k in cmd_lower for k in ["scrape", "website", "url", "page"]):
             add_step(3, "Web Scraping", "Extracting data from target URL")
-            urls = re.findall(r'https?://[^\s<>"']+', command)
+            urls = re.findall(r'''https?://[^\s<>'"]+''', command)
             for url in urls:
                 res = tool_scrape(url)
                 results.append({"tool": "scrape", "data": res})
