@@ -1,6 +1,6 @@
 {
   "default_model": "nvidia/nemotron-3-super-120b-a12b:free",
-  "port": 7860,
+  "port": 7861,
   "system_prompt_default": "You are CLIPHER, an advanced autonomous AI agent.",
   "openrouter_key": ""
 }
