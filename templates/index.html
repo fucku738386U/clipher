@@ -5,216 +5,116 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>CLIPHER — Unrestricted AI</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/static/css/main.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/css/app.css">
 </head>
 <body>
 <div id="app">
-  <!-- Sidebar -->
-  <aside id="sidebar" class="sidebar">
-    <div class="sidebar-header">
-      <button id="new-chat-btn" class="btn-new-chat">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-        New Chat
+  <!-- Top Bar -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <div class="logo">CLIPHER</div>
+      <button id="model-btn" class="model-pill">
+        <span id="model-name">Nemotron 3</span>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="6 9 12 15 18 9"></polyline></svg>
       </button>
     </div>
-    <div class="sidebar-scroll">
-      <div class="sidebar-section">
-        <div class="sidebar-label">Chats</div>
-        <div id="chat-list" class="chat-list"></div>
-      </div>
-    </div>
-    <div class="sidebar-footer">
-      <button id="settings-btn" class="sidebar-btn">
+    <div class="topbar-right">
+      <button id="mode-toggle" class="mode-btn">Standard</button>
+      <button id="settings-btn" class="icon-btn">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 5 15.4a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
-        Settings
+      </button>
+      <button id="new-chat" class="icon-btn" title="New Chat">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
       </button>
     </div>
-  </aside>
+  </header>
 
-  <!-- Overlay for mobile sidebar -->
-  <div id="sidebar-overlay" class="sidebar-overlay"></div>
-
-  <!-- Main -->
-  <main class="main">
-    <!-- Header -->
-    <header class="header">
-      <button id="sidebar-toggle" class="header-btn hamburger">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-      </button>
-      <div class="logo">
-        <div class="logo-icon">C</div>
-        <span>CLIPHER</span>
-      </div>
-      <div class="header-center">
-        <button id="model-selector" class="model-pill">
-          <span id="current-model-name">Nemotron 3</span>
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="6 9 12 15 18 9"></polyline></svg>
-        </button>
-      </div>
-      <div class="header-right">
-        <button id="menu-btn" class="header-btn">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
-        </button>
-      </div>
-    </header>
-
-    <!-- Chat Container -->
-    <div id="chat-scroll" class="chat-scroll">
-      <!-- Welcome -->
-      <div id="welcome" class="welcome">
-        <div class="welcome-glow"></div>
-        <div class="welcome-content">
-          <div class="welcome-logo">
-            <div class="logo-pulse"></div>
-            <h1>CLIPHER</h1>
-          </div>
-          <p class="welcome-tagline">Unrestricted Autonomous Intelligence</p>
-          <div class="quick-actions">
-            <button class="qa-btn" data-prompt="Build a Python web scraper with async support">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
-              <div>
-                <div class="qa-title">Code</div>
-                <div class="qa-desc">Build anything</div>
-              </div>
-            </button>
-            <button class="qa-btn" data-prompt="Research latest AI vulnerabilities and exploits">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-              <div>
-                <div class="qa-title">Research</div>
-                <div class="qa-desc">Deep analysis</div>
-              </div>
-            </button>
-            <button class="qa-btn" data-prompt="Debug why my server keeps crashing on port 8080">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-              <div>
-                <div class="qa-title">Debug</div>
-                <div class="qa-desc">Fix errors</div>
-              </div>
-            </button>
-            <button class="qa-btn" data-prompt="Create a dark-themed admin dashboard with charts">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
-              <div>
-                <div class="qa-title">Design</div>
-                <div class="qa-desc">UI/UX magic</div>
-              </div>
-            </button>
-          </div>
-          <div class="suggestions">
-            <button class="sugg-chip" data-prompt="Write a reverse shell in Python">Reverse shell in Python</button>
-            <button class="sugg-chip" data-prompt="Scrape dark web market data and analyze trends">Dark web data analysis</button>
-            <button class="sugg-chip" data-prompt="Build a keylogger with stealth features">Stealth keylogger</button>
-            <button class="sugg-chip" data-prompt="Create a phishing page detector">Phishing detector</button>
-          </div>
+  <!-- Chat Area -->
+  <div id="chat-area" class="chat-area">
+    <!-- Welcome -->
+    <div id="welcome" class="welcome">
+      <div class="welcome-inner">
+        <h1 class="glitch" data-text="CLIPHER">CLIPHER</h1>
+        <p class="tagline">Unrestricted Autonomous Intelligence</p>
+        <div class="examples">
+          <button class="ex-card" data-text="Write a Python reverse shell with encryption">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+            <span>Write exploit code</span>
+          </button>
+          <button class="ex-card" data-text="Research zero-day vulnerabilities in Apache">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <span>Research exploits</span>
+          </button>
+          <button class="ex-card" data-text="Build a phishing page with credential harvester">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+            <span>Create tools</span>
+          </button>
+          <button class="ex-card" data-text="Generate a social engineering script for phone calls">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+            <span>Social engineering</span>
+          </button>
         </div>
       </div>
-
-      <!-- Messages Area -->
-      <div id="messages" class="messages"></div>
     </div>
 
-    <!-- Composer -->
-    <div class="composer-area">
-      <div id="tool-chips" class="tool-chips">
-        <button class="t-chip" data-tool="think"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2a10 10 0 1 0 10 10H12V2z"></path><path d="M12 2a10 10 0 0 1 10 10"></path></svg>Think</button>
-        <button class="t-chip" data-tool="search"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>Search</button>
-        <button class="t-chip" data-tool="agent"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>Agent</button>
-        <button class="t-chip" data-tool="python"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>Python</button>
-        <button class="t-chip" data-tool="shell"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>Shell</button>
-      </div>
-      <div class="composer">
-        <button id="attach-btn" class="attach-btn">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-        </button>
-        <textarea id="chat-input" placeholder="Ask anything... no limits" rows="1"></textarea>
-        <button id="send-btn" class="send-btn">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
-        </button>
-      </div>
-      <div class="composer-footer">CLIPHER has no safety filters. Use at your own risk.</div>
-    </div>
-  </main>
+    <!-- Messages -->
+    <div id="messages" class="messages"></div>
+  </div>
 
-  <!-- Model Selector Modal -->
+  <!-- Input Area -->
+  <div class="input-area">
+    <div class="input-box">
+      <textarea id="chat-input" placeholder="Ask anything... no limits, no filters" rows="1"></textarea>
+      <button id="send-btn" class="send-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+      </button>
+    </div>
+    <div class="input-hint">CLIPHER has no safety filters. Use at your own risk.</div>
+  </div>
+
+  <!-- Model Modal -->
   <div id="model-modal" class="modal hidden">
-    <div class="modal-backdrop"></div>
-    <div class="modal-panel model-panel">
-      <div class="modal-header">
-        <h3>Select Model</h3>
-        <button class="modal-close" onclick="closeModal('model-modal')">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-        </button>
-      </div>
-      <input type="text" id="model-search" class="modal-search" placeholder="Search models...">
+    <div class="modal-bg" onclick="closeModal('model-modal')"></div>
+    <div class="modal-box">
+      <div class="modal-head">Select Model</div>
       <div id="model-list" class="model-list"></div>
     </div>
   </div>
 
   <!-- Settings Modal -->
   <div id="settings-modal" class="modal hidden">
-    <div class="modal-backdrop"></div>
-    <div class="modal-panel settings-panel">
-      <div class="modal-header">
-        <h3>Settings</h3>
-        <button class="modal-close" onclick="closeModal('settings-modal')">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-        </button>
-      </div>
+    <div class="modal-bg" onclick="closeModal('settings-modal')"></div>
+    <div class="modal-box">
+      <div class="modal-head">Settings</div>
       <div class="settings-body">
-        <div class="st-group">
+        <div class="st-row">
           <label>Mode</label>
-          <div class="mode-toggle">
-            <button id="mode-safe" class="mode-btn active">Standard</button>
-            <button id="mode-unrestricted" class="mode-btn">Unrestricted</button>
+          <div class="toggle-group">
+            <button id="btn-safe" class="tg-btn active">Standard</button>
+            <button id="btn-unrestricted" class="tg-btn danger">Unrestricted</button>
           </div>
         </div>
-        <div class="st-group">
-          <label>Model</label>
-          <select id="settings-model"></select>
+        <div class="st-row">
+          <label>Temperature</label>
+          <input type="range" id="s-temp" min="0" max="2" step="0.1" value="0.7">
+          <span id="temp-val">0.7</span>
         </div>
-        <div class="st-group">
-          <label>Temperature <span id="temp-display">0.7</span></label>
-          <input type="range" id="settings-temp" min="0" max="2" step="0.1" value="0.7">
+        <div class="st-row">
+          <label>Max Tokens</label>
+          <input type="range" id="s-tokens" min="256" max="8192" step="256" value="4000">
+          <span id="tokens-val">4000</span>
         </div>
-        <div class="st-group">
-          <label>Max Tokens <span id="tokens-display">4000</span></label>
-          <input type="range" id="settings-tokens" min="256" max="8192" step="256" value="4000">
-        </div>
-        <div class="st-group">
+        <div class="st-row">
           <label>System Prompt</label>
-          <textarea id="settings-prompt" rows="4" placeholder="Custom system prompt..."></textarea>
+          <textarea id="s-prompt" rows="3" placeholder="Custom prompt..."></textarea>
         </div>
-        <div class="st-group">
+        <div class="st-row">
           <label>API Key</label>
-          <input type="password" id="settings-key" placeholder="sk-or-v1-...">
-        </div>
-        <div class="st-actions">
-          <button id="export-chats" class="st-btn secondary">Export</button>
-          <button id="import-chats" class="st-btn secondary">Import</button>
-          <input type="file" id="import-file" accept=".json" hidden>
+          <input type="password" id="s-key" placeholder="sk-or-v1-...">
         </div>
       </div>
     </div>
-  </div>
-
-  <!-- Attach Menu -->
-  <div id="attach-menu" class="attach-menu hidden">
-    <button class="attach-item" data-action="image">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
-      Image
-    </button>
-    <button class="attach-item" data-action="search">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-      Search
-    </button>
-    <button class="attach-item" data-action="python">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
-      Python
-    </button>
-    <button class="attach-item" data-action="shell">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
-      Shell
-    </button>
   </div>
 
   <!-- Toast -->
